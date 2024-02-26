@@ -1,0 +1,26 @@
+name: Build
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+    build_and_build:
+        runs-on: Ubuntu-latest
+        permissions:
+          checks: write
+          pull-requests: write
+        steps:
+          - uses: actions/checkout@v2
+            with:
+              ref: ${{ github.event.pull_request.head.sha }}
+          - name: Build
+            run: |
+                  cat README.md
+                  mkdir test
+                  cd test
+
+          - name: Setup Node
+            uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8
+            with:
+                  node-version: 18.x
